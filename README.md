@@ -1,6 +1,6 @@
-# higepiyoskii
+# ひげピヨスキー
 
-A new Flutter project.
+Flutter製Misskeyクライアントです。操作性よりひげちゃんのエゴがたくさん詰まってます＾ｑ＾
 
 ## Getting Started
 
