@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:uuid/uuid.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
         lightSource: LightSource.topLeft,
         depth: 6,
       ),
-      home: MyHomePage(title: 'ひげピヨスキー'),
+      home: MyHomePage(title: ''),
     );
   }
 }
@@ -73,8 +74,8 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Center(
               child: Container(
-                padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                height: 220,
+                padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
+                height: 140,
                 width: double.maxFinite,
                 child: Neumorphic(
                   // color: Colors.transparent,
@@ -97,10 +98,15 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: NeumorphicButton(
-        onPressed: (){},
+        onPressed: (){
+          // var uuid = Uuid();
+          // var result = uuid.v4();
+
+        },
         tooltip: 'Increment',
         child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat, // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
