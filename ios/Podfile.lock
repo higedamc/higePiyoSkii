@@ -2,20 +2,26 @@ PODS:
   - Flutter (1.0.0)
   - flutter_inappwebview (0.0.1):
     - Flutter
+  - flutter_web_auth (0.2.4):
+    - Flutter
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_inappwebview (from `.symlinks/plugins/flutter_inappwebview/ios`)
+  - flutter_web_auth (from `.symlinks/plugins/flutter_web_auth/ios`)
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
   flutter_inappwebview:
     :path: ".symlinks/plugins/flutter_inappwebview/ios"
+  flutter_web_auth:
+    :path: ".symlinks/plugins/flutter_web_auth/ios"
 
 SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_inappwebview: 69dfbac46157b336ffbec19ca6dfd4638c7bf189
+  flutter_web_auth: b7465086188ce4413d7e8b23622583784b9007a7
 
 PODFILE CHECKSUM: c34e2287a9ccaa606aeceab922830efb9a6ff69a
 

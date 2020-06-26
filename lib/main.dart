@@ -1,6 +1,46 @@
+import 'dart:collection';
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_web_auth/flutter_web_auth.dart';
+import 'package:higepiyoskii/screens/post_screen.dart';
+import 'package:higepiyoskii/screens/test_screen.dart';
 import 'package:uuid/uuid.dart';
+// import 'package:http/http.dart' as http;
+import 'package:http/http.dart' as http;
+
+
+// String name = 'ひげピヨスキー';
+// Payload _payLoad;
+final uuidee = Uuid();
+final result = uuidee.v4();
+// final List<Permissionss> list = {
+//   "write:notes",
+//   "write:following",
+//   "read:drive",
+// } as List<Permissionss>;
+
+
+// class Payload{
+//     final String session;
+//     final String name;
+//     final String icon;
+
+//     Payload({this.session, this.name, this.icon});
+
+//     factory Payload.fromJson(Map<String, dynamic> json)  {
+//     return Payload(
+//   session: json["sessionid"],
+//   name: json["name"],
+//   icon: json[""],
+
+//     );
+//   }
+//   }
 
 void main() {
   runApp(MyApp());
@@ -50,7 +90,30 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
 
+// static Uuid uuid;
+
+
+
+@override
+  void initState() {
+    super.initState();
+   
+  }
   
+
+  // final callbackUrlScheme = '';
+  // var a = uuid.v4();
+
+  // String get result => '';
+
+  
+
+  
+
+  // final url = Uri.https("misskey.io", "/api/miauth", );
+
+  
+
 
   @override
   Widget build(BuildContext context) {
@@ -98,15 +161,180 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: NeumorphicButton(
-        onPressed: (){
-          // var uuid = Uuid();
-          // var result = uuid.v4();
+        onPressed: () async {
+          
+          // print(result.toString());
+          //  final Map<String, dynamic> _permission = Map<String, dynamic>();
 
-        },
+          //   _permission["write:notes"] = "writeNotes";
+          //   _permission["write:following"] = "writeFollowing";
+          //   _permission["read:drive"] = "readDrive";
+
+          //   var hage = jsonDecode(_permission.toString());
+
+
+          // final Map<String, dynamic>_payload = Map<String, dynamic>();
+          // _payload["sessionid"] = result;
+          // _payload["name"] = name;
+          // _payload["permission"] = hage;
+
+          // var hoge = jsonDecode(_payload.toString());
+
+          // // final result2 = Uri.encodeFull(_payload.toString());
+          // final Map<String, String> _payload2 = Map<String, String>();
+  //         Future<Access> _getUrl() async {
+  //           var url = "https://misskey.io/miauth";
+  //           var request = new Access(sessionId: result, name: "name", permission: test);
+  //           final response = await http.post(url,
+  //           body: json.encode(request.toJson()),
+  //           headers: {"Content-Type": "application/json"}
+  //           );
+
+  //           if (response.statusCode == 200) {
+  //             print(response.body);
+  //   // If server returns an OK response, parse the JSON
+  //   return Access.fromJson(json.decode(response.body));
+  // } else {
+  //   // If that response was not OK, throw an error.
+  //   throw Exception('Failed to load post');
+  // }
+  //         }
+
+
+          
+
+
+            
+
+          
+          
+          
+          String urll = "https://misskey.io/miauth/$result?name=higePiyoSkii&permission=write%3Anotes,write%3Afollowing,read%3Adrive";
+          var r = Uri.decodeFull(urll);
+          print(r);
+          
+          String name = "ひげピヨスキー";
+          String writeNotes = "write:notes";
+          String writeFollowing = "write:following";
+          String readDrive = "read:drive";
+          List<String> permissions = [writeNotes, writeFollowing, readDrive];
+          print(permissions);
+
+          String encodeMap(Map data) {
+  return data.keys.map((key) => "${Uri.encodeComponent(key)}=${Uri.encodeComponent(data[key])}").join(",");
+}
+          // String callbackUrl = "https://misskey.io/callback";
+
+        
+
+          Map<String, dynamic> map = Map<String, dynamic>();
+          map["name"] = name;
+          map["permission"] = "$writeNotes, $writeFollowing, $readDrive";
+          
+          
+          Uri uri = Uri(
+            scheme: "https",
+            host: "misskey.io",
+            path: "miauth/$result",
+            queryParameters: map
+
+          );
+          print(uri);
+          // final u = encodeMap(uri);
+          // print(uri);
+          // var e = Uri.encodeFull(map.toString());
+          // print(e);
+          // print(response.data.toString());
+          // final Map<String, String> map2 = new Map<String, String>.from(u);
+          // final url = Uri.https("misskey.io", "/miauth", u
+          //  );
+          
+          
+          final callbackUrlScheme = "";
+          final result2 = await FlutterWebAuth.authenticate(url: uri.toString(), callbackUrlScheme: callbackUrlScheme);
+          // if (result2.isNotEmpty)
+          
+          await Navigator.of(context).push(MaterialPageRoute(builder: (context) => AuthDone()));
+          final response = await http.post("https://misskey.io/api/miauth/$result/check").then((context) => print(context));
+          
+          
+          // final accessToken = jsonDecode(response.body)["accessToken"] as String; 
+          // print(accessToken.toString());
+          // print(accessToken);
+          // Future<Access> getUrl() async {
+          //   final response = await http.get(
+          //     result2,
+          //     headers: {'content-type': 'application/json'},
+
+          //   );
+          //   final responseJson = json.decode(response.body);
+          //   return Access.fromJson(responseJson);
+          //   // if (response.statusCode != 200) {
+          //   //   return print(responseJson.toString());
+          //   // }
+          //   // print(responseJson);
+          // }
+          },
+          
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat, // This trailing comma makes auto-formatting nicer for build methods.
     );
-  }
-}
+
+
+  }}
+
+//   class Access {
+//   final String sessionId;
+//   final String name;
+//   // final String icon;
+//   // final String callback;
+//   final List<Permissionss> permission;
+  
+//     Access({this.sessionId, this.name, this.permission});
+  
+//     Access.fromJson(Map<String, dynamic> json)
+  
+//       : sessionId = json['sessionid'],
+//         name = json['higePiyoSkii'],
+//         // callback = json['callback'],
+//         permission = json['permission'];
+  
+  
+//     Map<String, dynamic> toJson() => {
+//       'sessionid': sessionId,
+//       'name': name,
+//       // 'callback': callback
+//       'permission': permission,
+  
+//     };
+    
+//   }
+  
+//   class Permissionss {
+    
+
+//     final String writeNotes;
+//     final String writeFollowing;
+//     final String readDrive;
+
+//   Permissionss({this.writeNotes, this.writeFollowing, this.readDrive});
+
+//   Permissionss.fromJson(Map<String, dynamic> json)
+
+//   : writeNotes = json['write:notes'],
+//   writeFollowing = json['write:following'],
+//   readDrive = json['read:drive'];
+
+//   Map<String, dynamic> toJson() => {
+//     'write:notes': writeNotes,
+//     'write:following': writeFollowing,
+//     'read:drive': readDrive,
+//   };
+
+     
+// }
+
+  
+  
